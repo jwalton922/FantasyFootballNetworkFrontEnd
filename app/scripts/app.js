@@ -24,6 +24,18 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/accountCreate', {
+            templateUrl: 'views/accountCreate.html',
+            controller: 'AccountCtrl'
+      })
+        .when('/login',{
+            templateUrl: 'views/login.html',
+            controller: 'AccountCtrl'
+        })
+        .when('/home', {
+            templateUrl: "views/home.html",
+            controller: "HomeCtrl"
+        })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',

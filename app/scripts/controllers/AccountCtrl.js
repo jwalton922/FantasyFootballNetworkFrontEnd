@@ -17,7 +17,7 @@ angular.module('fantasyFootballNetworkApp')
         password: ""
     };
 
-    $scope.mainPage = "/home";
+    $scope.userHomePage = "/userHome";
 
     $scope.getRootUrl = function(){
         $log.log("Getting hostname from: "+document.URL);
@@ -53,7 +53,7 @@ angular.module('fantasyFootballNetworkApp')
         $http.post($scope.getRootUrl()+'/FantasyFootballNetwork/login',postBody).then(function success(xhr){
             $log.log("Success logging in",xhr);
             UserService.setUser(xhr.data);
-            $location.path($scope.mainPage);
+            $location.path($scope.userHomePage);
         }, function failure(data){
             $log.error("Error",data)
             alert("Error creating account: "+angular.toJson(data));

@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngStorage'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -28,14 +29,30 @@ angular
             templateUrl: 'views/accountCreate.html',
             controller: 'AccountCtrl'
       })
-        .when('/login',{
+      .when('/login',{
             templateUrl: 'views/login.html',
             controller: 'AccountCtrl'
-        })
-        .when('/home', {
+      })
+      .when('/home', {
             templateUrl: "views/home.html",
             controller: "HomeCtrl"
-        })
+      })
+      .when('/userProfile', {
+        templateUrl: "views/userProfile.html",
+        controller: "UserProfileCtrl"
+      })
+      .when('/userHome', {
+          templateUrl: "views/userHome.html",
+          controller: "UserHomeCtrl"
+      })
+      .when('/userProfile?userId', {
+        templateUrl: "views/userProfile.html",
+        controller: "UserProfileCtrl"
+      })
+      .when('/league?leagueId', {
+        templateUrl: "views/league.html",
+        controller: "LeagueCtrl"
+      })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',

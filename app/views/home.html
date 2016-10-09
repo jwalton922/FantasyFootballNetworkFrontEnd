@@ -3,5 +3,20 @@
     <div>
         <a  class="btn" href="/FantasyFootballNetwork/oauth/yahoo/authenticate">Link Yahoo Leagues</a>
     </div>
-    <div><h4>Roster</h4></div>
+    <div>
+      <h3>Score: {{user.score}}</h3>
+      <button data-ng-click="refreshUserScore()">Refresh score</button>
+    </div>
+    <div>
+      <h4>Teams</h4>
+      <div data-ng-repeat="team in teams">
+         <h5>{{team.teamName}}<h5>
+           <button class="btn" data-ng-click="refreshTeam(team)">Refresh</button>
+           <ul>
+             <li>Place: {{team.placeInLeague}}</li>
+             <li>Record: {{team.numWins}}-{{team.numLosses}}-{{team.numTies}}</li>
+
+           </ul>
+      </div>
+    </div>
 </div>

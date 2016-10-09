@@ -3,16 +3,16 @@
  */
 'use strict';
 
-angular.module('fantasyFootballNetworkApp').factory('UserService', [function() {
+angular.module('fantasyFootballNetworkApp').factory('UserService', ['$localStorage',function($localStorage) {
 
-    var serviceUser = null;
+
 
     return {
         setUser: function(user){
-            serviceUser = user;
+            $localStorage.user = user;
         },
         getUser: function(){
-            return serviceUser;
+            return $localStorage.user;
         }
     };
 }]);

@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div>
+  <h3>{{league.name}} ({{league.season}})</h3>
+  <button class="btn" data-ng-click="requestLeagueSettingsData()">Request Settings data</button>
+  <h5>Standings</h5>
+  <table class="table table-bordered">
+    <tr>
+      <td>Place</td>
+      <td>Team</td>
+      <td>Score</td>
+      <td>Record</td>
+      <td>Points For</td>
+      <td>Points Against</td>
+      <td>Moves</td>
+      <td>Trades</td>
+    </tr>
+    <tr data-ng-repeat="team in teams">
+      <td>{{$index +1}}</td>
+      <td><a href="#/team?teamId={{team.team.id}}">{{team.team.teamName}}</a></td>
+      <td>{{team.team.score | number: 2}}</td>
+      <td>{{team.team.numWins}}-{{team.team.numLosses}}-{{team.team.numTies}}</td>
+      <td>{{team.team.pointsFor}}</td>
+      <td>{{team.team.pointsAgainst}}</td>
+      <td>{{team.team.numberOfMoves}}</td>
+      <td>{{team.team.numberOfTrades}}</td>
+    </tr>
+  </table>
+  <h5>Matchups</h5>
+  <ul uib-pager total-items="totalWeeks" items-per-page="1" ng-model="matchupPage" ng-change="matchupPageChange()"></ul>
+  <table class="table table-bordered">
+    <tr><th>Team 1</th><th>Score</th><th>Team 2</th><th>Score</th></tr>
+    <tr data-ng-repeat="matchup in matchups">
+      <td>{{matchup.team.teamName}}</td>
+      <td>{{matchup.score}}</td>
+      <td>{{matchup.opponentTeamName}}</td>
+      <td>{{matchup.opponentScore}}</td>
+    </tr>
+  </table>
+</div>

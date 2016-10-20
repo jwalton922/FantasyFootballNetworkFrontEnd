@@ -1,0 +1,28 @@
+<div>
+  <h3>{{team.team.teamName}} Score: {{team.team.score | number : 2}}</h3>
+  <h4><a href="#/league?leagueId={{team.league.id}}">{{team.league.name}}</a> ({{team.team.season}})</h4>
+  <button class="btn" data-ng-click="requestPlayerData()">Request Player Data</button>
+  <table class="table table-bordered">
+    <tr>
+      <td>Record</td>
+      <td>{{team.team.numWins}}-{{team.team.numLosses}}-{{team.team.numTies}}</td>
+      </tr>
+    <tr>
+      <td>Points For</td>
+      <td>{{team.team.pointsFor}}</td>
+    </tr>
+    <tr>
+      <td>Points Against</td>
+      <td>{{team.team.pointsAgainst}}</td>
+    </tr>
+  </table>
+  <h4>Players</h4>
+  <ul uib-pager total-items="totalWeeks" items-per-page="1" ng-model="weekPage" ng-change="weekPageChange2()"></ul>
+  <table class="table table-bordered">
+    <tr data-ng-repeat="player in players">
+      <td>{{player.position}}</td>
+      <td>{{player.name}}</td>
+      <td>{{player.points | number:2}}</td>
+    </tr>
+  </table>
+</div>

@@ -62,11 +62,13 @@
          Your current score is {{user.score}}. How will your friends compare? You are
          ranked {{user.ranking}}
        </p>
-       <div id="currentTeams">
-         <div data-ng-repeat="team in teams">
-           {{team.teamName}} {{team.score}}
-         </div>
-       </div>
+        Home?
+         <table>
+           <tr data-ng-repeat="team in teams">
+             <td>{{team.team.teamName}}</td>
+            <td>{{team.league.name}}</td>
+           </tr>
+         </table>
      </div>
   </div>
 </div>

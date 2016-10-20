@@ -15,6 +15,51 @@ angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log','$htt
   };
 
   return {
+    requestLeagueSettingsData: function(leagueId,userId){
+      var url = getRootUrl()+"/FantasyFootballNetwork/yahoo/requestLeagueSettingsData";
+      var params = {leagueId: leagueId, userId: userId};
+      return $http.get(url, {params: params}).then(function success(xhr){
+        return xhr;
+      }, function error(xhr){
+        return xhr;
+      });
+    },
+    requestTeamRoster: function(teamId,userId){
+      var url = getRootUrl()+"/FantasyFootballNetwork/yahoo/requestPlayerData";
+      var params = {teamId: teamId, userId: userId};
+      return $http.get(url, {params: params}).then(function success(xhr){
+        return xhr;
+      }, function error(xhr){
+        return xhr;
+      });
+    },
+    getPlayersForTeam: function(teamId,week) {
+      var url = getRootUrl() + "/FantasyFootballNetwork/teams/" + teamId + "/players";
+      var params = {week: week};
+      return $http.get(url, {params: params}).then(function success(xhr) {
+        return xhr;
+      }, function error(xhr) {
+        return xhr;
+      });
+    },
+    getTeamData: function(teamId){
+      var url = getRootUrl()+"/FantasyFootballNetwork/teams/"+teamId;
+      var params = {};
+      return $http.get(url, {params: params}).then(function success(xhr){
+        return xhr;
+      }, function error(xhr){
+        return xhr;
+      });
+    },
+    getLeagueData: function(leagueId){
+      var url = getRootUrl()+"/FantasyFootballNetwork/leagues/"+leagueId;
+      var params = {};
+      return $http.get(url, {params: params}).then(function success(xhr){
+        return xhr;
+      }, function error(xhr){
+        return xhr;
+      });
+    },
     getUserProfileData: function(userId){
       var url = getRootUrl()+"/FantasyFootballNetwork/users/"+userId+"/profile";
       var params = {};

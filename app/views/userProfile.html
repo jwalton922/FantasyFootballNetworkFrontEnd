@@ -17,7 +17,7 @@
     <div data-ng-repeat="team in currentTeams">
       {{team.team.teamName}} <img height="32" width="32" src="{{team.team.teamIconUrl}}"/>Record: {{team.team.numWins}}-{{team.team.numLosses}}-{{team.team.numTies}}
       <ul>
-        <li><a>League{{team.league.name}}</a></li>
+        <li>League <a href="#/league?leagueId={{team.league.id}}">{{team.league.name}}</a></li>
         <li> Place: {{team.team.placeInLeague}}/{{team.league.numTeams}}</li>
         <li>Last Matchup: {{team.lastMatchup.status}} - {{team.lastMatchup.match.score }} to {{team.lastMatchup.match.opponentScore}}</li>
       </ul>

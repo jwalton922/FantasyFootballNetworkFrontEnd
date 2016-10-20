@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngStorage'
+    'ngStorage',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -49,9 +50,13 @@ angular
         templateUrl: "views/userProfile.html",
         controller: "UserProfileCtrl"
       })
-      .when('/league?leagueId', {
+      .when('/league', {
         templateUrl: "views/league.html",
         controller: "LeagueCtrl"
+      })
+      .when('/team', {
+        templateUrl: "views/team.html",
+        controller: "TeamCtrl"
       })
       .when('/about', {
         templateUrl: 'views/about.html',

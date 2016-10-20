@@ -62,7 +62,7 @@ angular.module('fantasyFootballNetworkApp')
       $log.log("Getting teams for user: "+$scope.user.id);
       FootballApi.getTeamsForUser($scope.user.id).then(function(xhr){
         $log.log("response from api: ",xhr);
-        $scope.teams = xhr.data;
+        $scope.teams = xhr.data.teams;
         $log.log("Current team data",$scope.teams);
       });
 

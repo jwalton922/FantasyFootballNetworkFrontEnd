@@ -13,6 +13,12 @@ angular.module('fantasyFootballNetworkApp')
       $scope.totalWeeks = 16;
       $scope.matchupData = 1;
 
+      $scope.requestLeagueTeams = function(){
+        FootballApi.requestLeagueTeams($scope.league.id, $scope.viewingUser.id).then(function(xhr){
+           $log.log("League teams: ",xhr.data);
+        });
+      };
+
       $scope.requestLeagueSettingsData = function(){
         FootballApi.requestLeagueSettingsData($scope.league.id, $scope.viewingUser.id).then(function(xhr){
           $log.log("League settings data: ",xhr.data);

@@ -57,7 +57,7 @@
   </div>
   <div class="row">
      <div class="col-md-12">
-       <h2>Your teams</h2>
+       <h2>Your teams {{teams.length}}</h2>
        <p>
          Your current score is {{user.score}}. How will your friends compare? You are
          ranked {{user.ranking}}
@@ -66,7 +66,7 @@
          <table>
            <tr data-ng-repeat="team in teams">
              <td>{{team.team.teamName}}</td>
-            <td>{{team.league.name}}</td>
+            <td><a href="#/league?leagueId={{team.league.id}}">{{team.league.name}}</a></td>
            </tr>
          </table>
      </div>

@@ -19,6 +19,11 @@ angular.module('fantasyFootballNetworkApp')
     $scope.teams = [];
     $scope.searchTerm = "";
     $scope.friends = [];
+
+    $scope.testUserJobs = function(){
+      FootballApi.testUserJobs($scope.user.id);
+    };
+
     $scope.getFriends = function(){
        FootballApi.getFriends($scope.user.id).then(function(xhr){
          $scope.friends = xhr.data;

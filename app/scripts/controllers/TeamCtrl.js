@@ -10,6 +10,13 @@ angular.module('fantasyFootballNetworkApp')
       $scope.totalWeeks = 16;
       $scope.weekPage = 1;
       $scope.players = [];
+
+      $scope.testTeamJob = function(){
+        FootballApi.testTeamJob($scope.viewingUser.id, $scope.team.team.id).then(function (xhr){
+          $log.log("Success",xhr);
+        });
+      };
+
       $scope.getTeamData = function(){
         FootballApi.getTeamData($scope.teamId).then(function(xhr){
           $scope.team = xhr.data;

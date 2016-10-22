@@ -1,5 +1,6 @@
 <div>
   <h3>{{team.team.teamName}} Score: {{team.team.score | number : 2}}</h3>
+  <button class="btn" data-ng-click="testTeamJob()">Test Team Job</button>
   <h4><a href="#/league?leagueId={{team.league.id}}">{{team.league.name}}</a> ({{team.team.season}})</h4>
   <button class="btn" data-ng-click="requestPlayerData()">Request Player Data</button>
   <table class="table table-bordered">

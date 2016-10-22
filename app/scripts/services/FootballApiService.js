@@ -15,6 +15,24 @@ angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log','$htt
   };
 
   return {
+    testTeamJob : function(userId, teamId){
+      var url = getRootUrl()+"/FantasyFootballNetwork/yahoo/testTeamDataJob";
+      var params = {userId: userId, teamId : teamId};
+      return $http.get(url, {params: params}).then(function success(xhr){
+        return xhr;
+      }, function error(xhr){
+        return xhr;
+      });
+    },
+     testLeagueJob : function(userId, leagueId){
+      var url = getRootUrl()+"/FantasyFootballNetwork/yahoo/testLeagueDataJob";
+      var params = {userId: userId, leagueId : leagueId};
+      return $http.get(url, {params: params}).then(function success(xhr){
+        return xhr;
+      }, function error(xhr){
+        return xhr;
+      });
+    },
     testUserJobs : function(userId){
       var url = getRootUrl()+"/FantasyFootballNetwork/yahoo/testRootJob";
       var params = {userId: userId};

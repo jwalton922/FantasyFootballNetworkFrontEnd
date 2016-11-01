@@ -60,14 +60,14 @@
        <button class="btn" data-ng-click="testUserJobs()">Test jobs</button>
        <h2>Your teams {{teams.length}}</h2>
        <p>
-         Your current score is {{user.score}}. How will your friends compare? You are
+         Your current score is <b>{{user.score | number:2}}</b>. How will your friends compare? You are
          ranked {{user.ranking}}
        </p>
         Home?
          <table>
            <tr data-ng-repeat="team in teams">
              <td>{{team.team.teamName}}</td>
-            <td><a href="#/league?leagueId={{team.league.id}}">{{team.league.name}}</a></td>
+            <td><a href="#/league?leagueId={{team.league.id}}">{{team.league.name}} </a> ({{team.league.season}})</td>
            </tr>
          </table>
      </div>

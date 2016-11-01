@@ -28,6 +28,7 @@
   </table>
   <h5>Matchups</h5>
   <ul uib-pager total-items="totalWeeks" items-per-page="1" ng-model="matchupPage" ng-change="matchupPageChange()"></ul>
+  <h5>{{matchupPage}}</h5>
   <table class="table table-bordered">
     <tr><th>Team 1</th><th>Score</th><th>Team 2</th><th>Score</th></tr>
     <tr data-ng-repeat="matchup in matchups">

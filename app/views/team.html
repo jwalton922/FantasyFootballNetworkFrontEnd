@@ -19,10 +19,11 @@
   </table>
   <h4>Players</h4>
   <ul uib-pager total-items="totalWeeks" items-per-page="1" ng-model="weekPage" ng-change="weekPageChange2()"></ul>
+  <h5>Week {{weekPage}}</h5>
   <table class="table table-bordered">
     <tr data-ng-repeat="player in players">
-      <td>{{player.position}}</td>
-      <td>{{player.name}}</td>
+      <td>{{player.fantasyTeamPosition}}</td>
+      <td>{{player.stats.name}}</td>
       <td>{{player.points | number:2}}</td>
     </tr>
   </table>

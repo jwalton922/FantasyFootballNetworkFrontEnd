@@ -1,6 +1,7 @@
 /**
  * Created by jwalton on 10/9/16.
  */
+'use strict';
 angular.module('fantasyFootballNetworkApp')
   .controller('TeamCtrl', ['$scope','$http', '$log','$location','UserService','FootballApi', '$routeParams',
     function ($scope, $http, $log,$location,UserService,FootballApi,$routeParams) {
@@ -21,7 +22,7 @@ angular.module('fantasyFootballNetworkApp')
         FootballApi.getTeamData($scope.teamId).then(function(xhr){
           $scope.team = xhr.data;
           $scope.weekPage = $scope.team.currentWeek-1;
-          $log.log("week page set to "+$scope.weekPage)
+          $log.log("week page set to "+$scope.weekPage);
           $scope.getPlayers();
         });
       };
@@ -37,7 +38,7 @@ angular.module('fantasyFootballNetworkApp')
         if(!$scope.team.team || !$scope.team.team.id){
           return;
         }
-        var id = $scope.team.team.id
+        var id = $scope.team.team.id;
         $log.log("Team id: "+id+" Week: "+$scope.weekPage);
         FootballApi.getPlayersForTeam(id, $scope.weekPage).then(function(xhr){
           $scope.players = xhr.data;

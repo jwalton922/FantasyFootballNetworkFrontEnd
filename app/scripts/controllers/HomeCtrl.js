@@ -22,9 +22,9 @@ angular.module('fantasyFootballNetworkApp')
         };
 
         $scope.refreshUserScore = function(){
-          $log.log("Refresh user score called")
+          $log.log("Refresh user score called");
           FootballApi.scoreUser($scope.user.id).then(function(xhr){
-             $scope.user = xhr.data
+             $scope.user = xhr.data;
           });
         };
 

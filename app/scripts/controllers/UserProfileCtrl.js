@@ -1,15 +1,16 @@
 /**
  * Created by jwalton on 10/2/16.
  */
+'use strict';
 angular.module('fantasyFootballNetworkApp')
   .controller('UserProfileCtrl', ['$scope','$http', '$log','$location','UserService','FootballApi', '$routeParams',
     function ($scope, $http, $log,$location,UserService,FootballApi,$routeParams) {
     $scope.userId = $routeParams.userId;
     $scope.user = {};
     $scope.teams = [];
-      $scope.lifetimeData = {}
+      $scope.lifetimeData = {};
       $scope.currentTeams = [];
-      $scope.CURRENT_SEASON = "2016"
+      $scope.CURRENT_SEASON = "2016";
     $log.log("User profile controller");
     $scope.loadData = function(){
       $log.log("Getting profile for user: "+$scope.userId);
@@ -45,7 +46,7 @@ angular.module('fantasyFootballNetworkApp')
             $scope.currentTeams.push(team);
           } else {
             if(team.team.placeInLeague === 1){
-              $scope.lifetimeData.firstPlaceFinishes++
+              $scope.lifetimeData.firstPlaceFinishes++;
             } else if(team.team.placeInLeague === 2){
               $scope.lifetimeData.secondPlaceFinishes++;
             } else if(team.team.placeInLeague === 3){

@@ -19,6 +19,16 @@ angular.module('fantasyFootballNetworkApp')
     $scope.teams = [];
     $scope.searchTerm = "";
     $scope.friends = [];
+    
+    $scope.linkYahoo = function(){
+        var authHeader = $http.defaults.headers.common['Authorization'];
+        $log.log("Auth header: "+authHeader);
+        $http.get('http://fantasyfootball.network/yahoo').then(function(xhr){
+            $log.log("link yahoo GET a success",xhr);
+        }, function(error){
+            $log.log("Error linking to yahoo",error);
+        });
+    };
 
     $scope.testUserJobs = function(){
       FootballApi.testUserJobs($scope.user.id);
@@ -57,9 +67,9 @@ angular.module('fantasyFootballNetworkApp')
     };
 
     $scope.refreshUserScore = function(){
-      $log.log("Refresh user score called")
+      $log.log("Refresh user score called");
       FootballApi.scoreUser($scope.user.id).then(function(xhr){
-        $scope.user = xhr.data
+        $scope.user = xhr.data;
       });
     };
 

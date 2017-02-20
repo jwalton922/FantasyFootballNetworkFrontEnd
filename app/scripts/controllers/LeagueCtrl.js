@@ -1,6 +1,7 @@
 /**
  * Created by jwalton on 10/9/16.
  */
+'use strict';
 angular.module('fantasyFootballNetworkApp')
   .controller('LeagueCtrl', ['$scope','$http', '$log','$location','UserService','FootballApi', '$routeParams',
     function ($scope, $http, $log,$location,UserService,FootballApi,$routeParams) {
@@ -35,7 +36,7 @@ angular.module('fantasyFootballNetworkApp')
         FootballApi.getLeagueData($scope.leagueId).then(function(xhr){
           $log.log("League data: ",xhr.data);
             $scope.league = xhr.data.league;
-            $scope.teams = xhr.data.teams
+            $scope.teams = xhr.data.teams;
 
             $scope.teams.sort(function(a,b){
               var aPlace = a.team.placeInLeague;
@@ -63,14 +64,14 @@ angular.module('fantasyFootballNetworkApp')
           $log.log("Matchup",matchup);
           $scope.matchups.push(matchup.match);
         }
-      }
+      };
 
       $scope.matchupPageChange = function(arg){
         $log.log("matchupPageChange arg: ",arg);
         $log.log("Changing page to: "+$scope.matchupPage);
         $scope.getMatchups();
 
-      }
+      };
 
       $scope.getLeagueData();
     }

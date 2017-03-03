@@ -6,7 +6,7 @@
 angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log', '$http', function ($log, $http) {
 
         var getRootUrl = function () {
-            return "http://fantasyfootball.network";
+            return "https://www.fantasyfootball.network";
 //    $log.log("Getting hostname from: "+document.URL);
 //    if(location.hostname === "localhost"){
 //      return "http://localhost:8080";

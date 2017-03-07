@@ -20,15 +20,16 @@ angular.module('fantasyFootballNetworkApp')
     $scope.searchTerm = "";
     $scope.friends = [];
     
-//    $scope.linkYahoo = function(){
-//        var authHeader = $http.defaults.headers.common['Authorization'];
-//        $log.log("Auth header: "+authHeader);
-//        $http.get('http://fantasyfootball.network/yahoo').then(function(xhr){
-//            $log.log("link yahoo GET a success",xhr);
-//        }, function(error){
-//            $log.log("Error linking to yahoo",error);
-//        });
-//    };
+    $scope.linkYahoo = function(){
+        var email = $scope.user.email;
+        var encodedEmail = encodeURIComponent(email);
+        $log.log("Encoded email: "+encodedEmail);
+        $http.get('https://fantasyfootball.network/FantasyFooballNetwork/yahoo', {params: {userEmail: encodedEmail}}).then(function(xhr){
+            $log.log("link yahoo GET a success",xhr);
+        }, function(error){
+            $log.log("Error linking to yahoo",error);
+        });
+    };
 
     $scope.testUserJobs = function(){
       FootballApi.testUserJobs($scope.user.id);

@@ -30,6 +30,11 @@ angular.module('fantasyFootballNetworkApp')
             $log.log("Error linking to yahoo",error);
         });
     };
+    
+    $scope.getEncodedUserEmail = function(){
+        $log.log("Getting encoded email for user", $scope.user);
+        return encodeURIComponent($scope.user.email);
+    };
 
     $scope.testUserJobs = function(){
       FootballApi.testUserJobs($scope.user.id);

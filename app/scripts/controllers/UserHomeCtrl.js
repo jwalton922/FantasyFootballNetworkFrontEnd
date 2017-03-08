@@ -24,7 +24,7 @@ angular.module('fantasyFootballNetworkApp')
         var email = $scope.user.email;
         var encodedEmail = encodeURIComponent(email);
         $log.log("Encoded email: "+encodedEmail);
-        $http.get('https://fantasyfootball.network/FantasyFooballNetwork/yahoo', {params: {userEmail: encodedEmail}}).then(function(xhr){
+        $http.get('https://www.fantasyfootball.network/FantasyFootballNetwork/yahoo', {params: {userEmail: encodedEmail}}).then(function(xhr){
             $log.log("link yahoo GET a success",xhr);
         }, function(error){
             $log.log("Error linking to yahoo",error);

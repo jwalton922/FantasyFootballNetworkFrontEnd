@@ -22,9 +22,12 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: 'views/landing.html',
+        controller: 'LandingCtrl'
+      })
+      .when('/signup', {
+        templateUrl: 'views/signup.html',
+        controller: 'SignupCtrl'
       })
       .when('/accountCreate', {
             templateUrl: 'views/accountCreate.html',

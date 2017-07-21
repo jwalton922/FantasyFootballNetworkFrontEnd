@@ -5,6 +5,6 @@ angular.module('fantasyFootballNetworkApp')
                 $scope.email = "";
                 $scope.getEncodedUserEmail = function () {
                     $log.log("Getting encoded email for user", $scope.user);
-                    return encodeURIComponent($scope.user.email);
+                    return encodeURIComponent($scope.email);
                 };
             }]);

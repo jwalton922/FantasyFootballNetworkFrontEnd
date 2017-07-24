@@ -459,7 +459,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
-    //'useminPrepare',
+    'useminPrepare',
     'concurrent:dist',
     'postcss',
     'ngtemplates',
@@ -467,11 +467,11 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'copy:dist',
     'cdnify',
-    //'cssmin',
-    //'uglify',
+    'cssmin',
+    'uglify',
     'filerev',
-    //'usemin',
-    //'htmlmin'
+    'usemin',
+    'htmlmin'
   ]);
 
   grunt.registerTask('default', [

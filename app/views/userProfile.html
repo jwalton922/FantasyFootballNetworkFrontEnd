@@ -1,38 +1,96 @@
 <div>
-  <h1>{{user.username}} Score: {{user.score | number : 2}}</h1>
-  <h4>Life Time Record: {{lifetimeData.wins}}-{{lifetimeData.losses}}-{{lifetimeData.ties}}</h4>
-  <h4>Win %: {{lifetimeData.winPercentage | number: 2}}</h4>
-  <div>
-    <h5>Finishes</h5>
-    <ul>
-      <li>1st: {{lifetimeData.firstPlaceFinishes}}</li>
-      <li>2nd: {{lifetimeData.secondPlaceFinishes}}</li>
-      <li>3rd: {{lifetimeData.thirdPlaceFinishes}}</li>
-      <li>Top 1/2: {{lifetimeData.topHalfFinishes}}</li>
-      <li>Other: {{lifetimeData.otherFinishes}}</li>
-    </ul>
-  </div>
-  <div id="currentTeams">
-    <h3>Current Teams</h3>
-    <div data-ng-repeat="team in currentTeams">
-      {{team.team.teamName}} <img height="32" width="32" src="{{team.team.teamIconUrl}}"/>Record: {{team.team.numWins}}-{{team.team.numLosses}}-{{team.team.numTies}}
-      <ul>
-        <li>League <a href="#/league?leagueId={{team.league.id}}">{{team.league.name}}</a></li>
-        <li> Place: {{team.team.placeInLeague}}/{{team.league.numTeams}}</li>
-        <li>Last Matchup: {{team.lastMatchup.status}} - {{team.lastMatchup.match.score }} to {{team.lastMatchup.match.opponentScore}}</li>
-      </ul>
+    <h3>Your Fantasy Football Manager Scoring!</h3>
+    <div class="row">
+        
+        <div class="col-sm-12">
+            <span style="font-size:30px;vertical-align: middle;">Site Ranking:</span><span style="font-size:30px;" id="ranking" class="odometer">0</span>
+            
+            <span style="margin-left:25px; font-size:30px;vertical-align: middle;">Percentile:</span><span style="font-size:30px;" id="percentile" class="odometer">0</span>
+            <br />
+            <span style="font-size:30px;">Overall Score: {{userData.userScore}}</span>
+        </div>
     </div>
-  </div>
-  <div id="historicalTeams">
-    <h3>Previous Teams</h3>
-    <div data-ng-repeat="team in teams">
-       {{team.team.teamName}} ({{team.team.season}}) Record: {{team.team.numWins}}-{{team.team.numLosses}}-{{team.team.numTies}}
-      {{team.team.score | number:2}}
-      Finished: {{team.team.placeInLeague}}
-      <span data-ng-class="{red: !team.currentManagerScore.positiveDelta, green: team.currentManagerScore.positiveDelta}">{{team.currentManagerScore.delta | number:2}}</span>
-      <ul>
-        <li data-ng-repeat="managerScore in team.managerScores" data-ng-show="team.team.season != '2016' || managerScore.week <= team.currentManagerScore.week">Week {{managerScore.week}} Score: {{managerScore.score}}</li>
-      </ul>
+    <div class="row">
+        <div class="col-sm-4">
+            <span style="font-size:18px;">Overall Score: {{userData.userScore}}</span><span>Percentile {{}}</span>
+        </div>
+        <div class="col-sm-4">
+            <span>Record: {{userData.totalWins}} - {{userData.totalLosses}} - {{userData.totalTies}}</span>
+        </div>
+        <div class="col-sm-4">
+            <span>Average Finish: {{userData.avgRank| number:2}} for {{teams.length}} teams</span>
+        </div>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Placement Data</h3>
+            <table class="table table-bordered">
+                <tr><td></td><td colspan="3" style="text-align: center">Count of Times Rank Happened</td></tr>
+                <tr><td>Rank</td><td>End of Year Rank</td><td>Points Scored Rank</td><td>Points Scored Against Rank</td></tr>
+                <tr>
+                    <td>1st Place</td><td>{{placementData.firstPlace}}</td><td>{{scoringData.firstPlace}}</td><td>{{scoringAgainstData.firstPlace}}</td>
+                </tr>
+                <tr>
+                    <td>2nd Place</td><td>{{placementData.secondPlace}}</td><td>{{scoringData.secondPlace}}</td><td>{{scoringAgainstData.secondPlace}}</td>
+                </tr>
+                <tr>
+                    <td>3rd Place</td><td>{{placementData.thirdPlace}}</td><td>{{scoringData.thirdPlace}}</td><td>{{scoringAgainstData.thirdPlace}}</td>
+                </tr>
+                <tr>
+                    <td>Top Half Finish</td><td>{{placementData.topHalf}}</td><td>{{scoringData.topHalf}}</td><td>{{scoringAgainstData.topHalf}}</td>
+                </tr>
+                <tr>
+                    <td>Bottom Half Finish</td><td>{{placementData.bottomHalf}}</td><td>{{scoringData.bottomHalf}}</td><td>{{scoringAgainstData.bottomHalf}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--    <div class="row">
+            
+            <div class="col-sm-4">
+                <ul>
+                    <li>First Place Finishes: {{placementData.firstPlace}}</li>
+                    <li>Second Place Finishes: {{placementData.secondPlace}}</li>
+                    <li>Third Place Finishes: {{placementData.thirdPlace}}</li>
+                    <li>Top Half Finishes: {{placementData.topHalf}}</li>
+                    <li>Bottom Half Finishes: {{placementData.bottomHalf}}</li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <ul>
+                    <li>First Place Scoring: {{scoringData.firstPlace}}</li>
+                    <li>Second Place Scoring: {{scoringData.secondPlace}}</li>
+                    <li>Third Place Scoring: {{scoringData.thirdPlace}}</li>
+                    <li>Top Half Scoring: {{scoringData.topHalf}}</li>
+                    <li>Bottom Half Scoring: {{scoringData.bottomHalf}}</li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <ul>
+                    <li>First Place Scoring Against: {{scoringAgainstData.firstPlaceFinishes}}</li>
+                    <li>Second Place Scoring Against: {{scoringAgainstData.secondPlaceFinishes}}</li>
+                    <li>Third Place Scoring Against: {{scoringAgainstData.thirdPlaceFinishes}}</li>
+                    <li>Top Half Scoring Against: {{scoringAgainstData.topHalfFinishes}}</li>
+                    <li>Bottom Half Scoring Against: {{scoringAgainstData.bottomHalfFinishes}}</li>
+                </ul>
+            </div>
+        </div>-->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Teams</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Year</th><th>League</th><th>Team</th><th>Place</th><th>Points Scored Rank</th><th>Points Against Rank</th>
+                </tr>
+                <tr data-ng-repeat="team in teams">
+                    <td>{{team.year}}</td>
+                    <td>{{team.league_name}}</td>
+                    <td>{{team.team_name}}</td>
+                    <td>{{team.rank}}/{{team.league_size}}</td>
+                    <td>{{team.points_scored_rank}}</td>
+                    <td>{{team.points_against_rank}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

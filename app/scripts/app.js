@@ -29,43 +29,38 @@ angular
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
       })
-      .when('/accountCreate', {
-            templateUrl: 'views/accountCreate.html',
-            controller: 'AccountCtrl'
-      })
-      .when('/login',{
-            templateUrl: 'views/login.html',
-            controller: 'AccountCtrl'
-      })
-      .when('/home', {
-            templateUrl: "views/home.html",
-            controller: "HomeCtrl"
-      })
-      .when('/userProfile', {
+//      .when('/accountCreate', {
+//            templateUrl: 'views/accountCreate.html',
+//            controller: 'AccountCtrl'
+//      })
+//      .when('/login',{
+//            templateUrl: 'views/login.html',
+//            controller: 'AccountCtrl'
+//      })
+//      .when('/home', {
+//            templateUrl: "views/home.html",
+//            controller: "HomeCtrl"
+//      })
+      .when('/profiles/:userId', {
         templateUrl: "views/userProfile.html",
         controller: "UserProfileCtrl"
       })
-      .when('/userHome', {
-          templateUrl: "views/userHome.html",
-          controller: "UserHomeCtrl"
-      })
-      .when('/userProfile?userId', {
-        templateUrl: "views/userProfile.html",
-        controller: "UserProfileCtrl"
-      })
-      .when('/league', {
-        templateUrl: "views/league.html",
-        controller: "LeagueCtrl"
-      })
-      .when('/team', {
-        templateUrl: "views/team.html",
-        controller: "TeamCtrl"
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
+//      .when('/userHome', {
+//          templateUrl: "views/userHome.html",
+//          controller: "UserHomeCtrl"
+//      })
+//      .when('/userProfile?userId', {
+//        templateUrl: "views/userProfile.html",
+//        controller: "UserProfileCtrl"
+//      })
+//      .when('/league', {
+//        templateUrl: "views/league.html",
+//        controller: "LeagueCtrl"
+//      })
+//      .when('/team', {
+//        templateUrl: "views/team.html",
+//        controller: "TeamCtrl"
+//      })
       .otherwise({
         redirectTo: '/'
       });

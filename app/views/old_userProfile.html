@@ -1,0 +1,38 @@
+<div>
+  <h1>{{user.username}} Score: {{user.score | number : 2}}</h1>
+  <h4>Life Time Record: {{lifetimeData.wins}}-{{lifetimeData.losses}}-{{lifetimeData.ties}}</h4>
+  <h4>Win %: {{lifetimeData.winPercentage | number: 2}}</h4>
+  <div>
+    <h5>Finishes</h5>
+    <ul>
+      <li>1st: {{lifetimeData.firstPlaceFinishes}}</li>
+      <li>2nd: {{lifetimeData.secondPlaceFinishes}}</li>
+      <li>3rd: {{lifetimeData.thirdPlaceFinishes}}</li>
+      <li>Top 1/2: {{lifetimeData.topHalfFinishes}}</li>
+      <li>Other: {{lifetimeData.otherFinishes}}</li>
+    </ul>
+  </div>
+  <div id="currentTeams">
+    <h3>Current Teams</h3>
+    <div data-ng-repeat="team in currentTeams">
+      {{team.team.teamName}} <img height="32" width="32" src="{{team.team.teamIconUrl}}"/>Record: {{team.team.numWins}}-{{team.team.numLosses}}-{{team.team.numTies}}
+      <ul>
+        <li>League <a href="#/league?leagueId={{team.league.id}}">{{team.league.name}}</a></li>
+        <li> Place: {{team.team.placeInLeague}}/{{team.league.numTeams}}</li>
+        <li>Last Matchup: {{team.lastMatchup.status}} - {{team.lastMatchup.match.score }} to {{team.lastMatchup.match.opponentScore}}</li>
+      </ul>
+    </div>
+  </div>
+  <div id="historicalTeams">
+    <h3>Previous Teams</h3>
+    <div data-ng-repeat="team in teams">
+       {{team.team.teamName}} ({{team.team.season}}) Record: {{team.team.numWins}}-{{team.team.numLosses}}-{{team.team.numTies}}
+      {{team.team.score | number:2}}
+      Finished: {{team.team.placeInLeague}}
+      <span data-ng-class="{red: !team.currentManagerScore.positiveDelta, green: team.currentManagerScore.positiveDelta}">{{team.currentManagerScore.delta | number:2}}</span>
+      <ul>
+        <li data-ng-repeat="managerScore in team.managerScores" data-ng-show="team.team.season != '2016' || managerScore.week <= team.currentManagerScore.week">Week {{managerScore.week}} Score: {{managerScore.score}}</li>
+      </ul>
+    </div>
+  </div>
+</div>

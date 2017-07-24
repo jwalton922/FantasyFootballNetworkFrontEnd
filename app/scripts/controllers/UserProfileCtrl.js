@@ -1,73 +1,111 @@
-/**
- * Created by jwalton on 10/2/16.
- */
 'use strict';
 angular.module('fantasyFootballNetworkApp')
-  .controller('UserProfileCtrl', ['$scope','$http', '$log','$location','UserService','FootballApi', '$routeParams',
-    function ($scope, $http, $log,$location,UserService,FootballApi,$routeParams) {
-    $scope.userId = $routeParams.userId;
-    $scope.user = {};
-    $scope.teams = [];
-      $scope.lifetimeData = {};
-      $scope.currentTeams = [];
-      $scope.CURRENT_SEASON = "2016";
-    $log.log("User profile controller");
-    $scope.loadData = function(){
-      $log.log("Getting profile for user: "+$scope.userId);
-      FootballApi.getUserProfileData($scope.userId).then(function(xhr){
-        $log.log("response from api: ",xhr);
-        $scope.teams = [];
-        $scope.currentTeams = [];
-        $scope.lifetimeData.wins = 0;
-        $scope.lifetimeData.losses = 0;
-        $scope.lifetimeData.ties = 0;
-        $scope.lifetimeData.firstPlaceFinishes = 0;
-        $scope.lifetimeData.secondPlaceFinishes = 0;
-        $scope.lifetimeData.thirdPlaceFinishes = 0;
-        $scope.lifetimeData.topHalfFinishes = 0;
-        $scope.lifetimeData.otherFinishes = 0;
+        .controller('UserProfileCtrl', ['$scope', '$http', '$log', '$location', 'UserService', 'FootballApi', '$routeParams',
+            function ($scope, $http, $log, $location, UserService, FootballApi, $routeParams) {
+                var rankingEl = document.querySelector('#ranking');
+                var od = new Odometer({
+                    el: rankingEl,
+                    value: 0,                   
+                    format: '',
+                    theme: 'minimal'
+                });
+                var od2 = new Odometer({
+                    el: document.querySelector('#percentile'),
+                    value: 0,                   
+                    format: '',
+                    theme: 'minimal'
+                });
+                $scope.userScore = 0;
+                $scope.siteRanking = 0;
+                $scope.siteRankingPercentile = 0;
+                $log.log("Route params: ", $routeParams);
+                $scope.userId = $routeParams.userId;
+                $scope.userData = {};
+                $scope.requestingUserData = true;
+                $scope.requestingTeamData = true;
+                $scope.teams = [];
+                $scope.placementData = {};
 
-        for(var i = 0; i < xhr.data.teams.length; i++){
-          var team = xhr.data.teams[i];
-          team.lastMatchup = team.weekData[team.currentWeek-1];
-          if(team.lastMatchup.match) {
-            if (team.lastMatchup.match.score > team.lastMatchup.match.opponentScore) {
-              team.lastMatchup.status = "Win";
-            } else if (team.lastMatchup.match.score < team.lastMatchup.match.opponentScore) {
-              team.lastMatchup.status = "Loss";
-            } else {
-              team.lastMatchup.status = "Tie";
-            }
-          }
-          $scope.lifetimeData.wins+=team.team.numWins;
-          $scope.lifetimeData.losses+=team.team.numLosses;
-          $scope.lifetimeData.ties+=team.team.numTies;
-          if(team.team.season === $scope.CURRENT_SEASON){
-            $scope.currentTeams.push(team);
-          } else {
-            if(team.team.placeInLeague === 1){
-              $scope.lifetimeData.firstPlaceFinishes++;
-            } else if(team.team.placeInLeague === 2){
-              $scope.lifetimeData.secondPlaceFinishes++;
-            } else if(team.team.placeInLeague === 3){
-              $scope.lifetimeData.thirdPlaceFinishes++;
-            } else if(team.team.placeInLeague/team.league.numTeams < 0.5){
-              $scope.lifetimeData.topHalfFinishes++;
-            } else {
-              $scope.lifetimeData.otherFinishes++;
-            }
-            $scope.teams.push(team);
-          }
-        }
+                FootballApi.getUser($scope.userId).then(function (xhr) {
+                    $log.log("User data", xhr);
+                    $scope.userData = xhr.data;
+                    var percentile = ($scope.userData.totalUsers - $scope.userData.userRank)/$scope.userData.totalUsers;
+                    percentile = percentile*10000/100;
+                    var rankingElement = document.querySelector('#ranking');
+                    rankingElement.innerHTML = $scope.userData.userRank+1;
+                    var percentileElement = document.querySelector('#percentile');
+                    percentileElement.innerHTML = percentile;
+                });
 
-        $scope.lifetimeData.winPercentage = 100*$scope.lifetimeData.wins/($scope.lifetimeData.wins+$scope.lifetimeData.losses+$scope.lifetimeData.ties);
+                $scope.teamSortOrder = {};
+                $scope.currentSortField = "year";
+                FootballApi.getUserTeams($scope.userId).then(function (xhr) {
+                    $log.log("User teamdata", xhr);
+                    $scope.teams = xhr.data;
 
-        $scope.user = xhr.data.user;
-        $log.log("Current team data",$scope.teams);
-      });
-    };
+                    $scope.placementData = {firstPlace: 0, secondPlace: 0, thirdPlace: 0, topHalf: 0, bottomHalf: 0};
+                    $scope.scoringData = {firstPlace: 0, secondPlace: 0, thirdPlace: 0, topHalf: 0, bottomHalf: 0};
+                    $scope.scoringAgainstData = {firstPlace: 0, secondPlace: 0, thirdPlace: 0, topHalf: 0, bottomHalf: 0};
+                    for (var i = 0; i < $scope.teams.length; i++) {
 
-    $scope.loadData();
+                        var team = $scope.teams[i];
+                        if (i === 0) {
+                            for (var key in team) {
+                                $scope.teamSortOrder[key] = -1;
+                            }
+                        }
+                        if (team.rank === 1) {
+                            $scope.placementData.firstPlace++;
+                        } else if (team.rank === 2) {
+                            $scope.placementData.secondPlace++;
+                        } else if (team.rank === 3) {
+                            $scope.placementData.thirdPlace++;
+                        }
+                        if (team.rank < (team.league_size / 2)) {
+                            $scope.placementData.topHalf++;
+                        } else {
+                            $scope.placementData.bottomHalf++;
+                        }
 
+                        if (team.points_scored_rank === 1) {
+                            $scope.scoringData.firstPlace++;
+                        } else if (team.points_scored_rank === 2) {
+                            $scope.scoringData.secondPlace++;
+                        } else if (team.points_scored_rank === 3) {
+                            $scope.scoringData.thirdPlace++;
+                        }
+                        if (team.points_scored_rank < (team.league_size / 2)) {
+                            $scope.scoringData.topHalf++;
+                        } else {
+                            $scope.scoringData.bottomHalf++;
+                        }
 
-  }]);
+                        if (team.points_against_rank === 1) {
+                            $scope.scoringAgainstData.firstPlace++;
+                        } else if (team.points_against_rank === 2) {
+                            $scope.scoringAgainstData.secondPlace++;
+                        } else if (team.points_against_rank === 3) {
+                            $scope.scoringAgainstData.thirdPlace++;
+                        }
+                        if (team.points_against_rank < (team.league_size / 2)) {
+                            $scope.scoringAgainstData.topHalf++;
+                        } else {
+                            $scope.scoringAgainstData.bottomHalf++;
+                        }
+
+                    }
+                    $scope.sortTeams($scope.currentSortField);
+                });
+
+                $scope.sortTeams = function (field) {
+                    if (field === $scope.currentSortField) {
+                        $scope.teamSortOrder[field] = -1 * $scope.teamSortOrder[field];
+                    } else {
+                        $scope.currentSortField = field;
+                    }
+                    $scope.teams.sort(function (a, b) {
+                        var retValue = a[field] < b[field];
+                        return retValue * $scope.teamSortOrder[field];
+                    });
+                }
+            }]);

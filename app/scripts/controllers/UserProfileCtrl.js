@@ -15,6 +15,12 @@ angular.module('fantasyFootballNetworkApp')
                     format: '',
                     theme: 'minimal'
                 });
+                var od3 = new Odometer({
+                    el: document.querySelector('#overallscore'),
+                    value: 0,                   
+                    format: '',
+                    theme: 'minimal'
+                });
                 $scope.userScore = 0;
                 $scope.siteRanking = 0;
                 $scope.siteRankingPercentile = 0;
@@ -35,6 +41,9 @@ angular.module('fantasyFootballNetworkApp')
                     rankingElement.innerHTML = $scope.userData.userRank+1;
                     var percentileElement = document.querySelector('#percentile');
                     percentileElement.innerHTML = percentile;
+                    
+                    var overallScoreElement = document.querySelector('#overallscore');
+                    overallScoreElement.innerHTML = $scope.userData.userScore;
                 });
 
                 $scope.teamSortOrder = {};

@@ -1,11 +1,16 @@
-<div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input data-ng-model="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-    </div>
-    <a class="btn btn-primary" href="https://www.fantasyfootball.network/FantasyFootballNetwork/yahooV1?userEmail={{getEncodedUserEmail()}}">>Link Yahoo Oauth V1</a>
-     <a class="btn btn-primary" href="https://www.fantasyfootball.network/FantasyFootballNetwork/yahooV1?userEmail={{getEncodedUserEmail()}}">>Link Yahoo</a>
-    <div class="form-group">
-        
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address (Optional)</label>
+            <input data-ng-model="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">            
+        </div>
+        <div class="chekcbox">
+            <label>Receive Email Updates <input data-ng-model="receiveUpdates" type="checkbox"></label>
+        </div>
+        <a id="yahooLinkBtn" class="btn btn-primary" href="https://www.fantasyfootball.network/FantasyFootballNetwork/yahooV1?userEmail={{getEncodedUserEmail()}}">Link Yahoo</a>     
+        <a id="espnLinkBtn" class="btn btn-primary" data-ng-click="linkESPN()">Link ESPN</a>     
+        <a id="nflLinkBtn" class="btn btn-primary" data-ng-click="linkNFL()">Link NFL.com </a>     
+        <a id="cbsLinkBtn" class="btn btn-primary" data-ng-click="linkCBS()">Link CBS</a>    
+        <a id="otherLinkBtn" class="btn btn-primary" data-ng-click="linkOther()">Link Other </a>     
     </div>
 </div>

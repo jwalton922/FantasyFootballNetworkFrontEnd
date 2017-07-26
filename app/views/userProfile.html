@@ -1,49 +1,96 @@
 <div>
     <h3>Your Fantasy Football Manager Scoring!</h3>
-    <div class="row">
-        <div class="col-sm-12">
-            <span style="font-size:30px;vertical-align: middle;">Site Ranking:</span><span style="font-size:30px;" id="ranking" class="odometer">0</span>
 
-            <span style="margin-left:25px; font-size:30px;vertical-align: middle;">Percentile:</span><span style="font-size:30px;" id="percentile" class="odometer">0</span>
-            <br />
-            <span style="font-size:30px;">Overall Score: {{userData.userScore}}</span>
+    <div class="row">
+        <div class="col-sm-12">
+            <span style="font-size:30px;vertical-align: middle;">Score:</span><span style="font-size:30px;margin-left:5px;" id="overallscore" class="odometer">0</span>
+            <span style="margin-left:25px;font-size:30px;vertical-align: middle;">Site Ranking:</span><span style="font-size:30px;margin-left:5px;" id="ranking" class="odometer">0</span>
+            <span style="margin-left:25px; font-size:30px;vertical-align: middle;">Percentile:</span><span style="font-size:30px;margin-left:5px;" id="percentile" class="odometer">0</span>            
+            <p>Check back regularly to see how your rank changes!</p>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-sm-12">            
+            <span><a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out how good I am at Fantasy Football!" data-url="{{window.location.href}}" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></span>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <span style="font-size:18px;">Overall Score: {{userData.userScore}}</span><span>Percentile {{}}</span>
+            <h3>Finishes</h3>
+            <span style="font-size:45px; margin-right:10px;"><i class="firstPlace fa fa-trophy" aria-hidden="true"></i>{{placementData.firstPlace}}</span>
+            <span style="font-size:40px; margin-right:10px;"><i class="secondPlace fa fa-trophy" aria-hidden="true"></i>{{placementData.secondPlace}}</span>
+            <span style="font-size:35px;margin-right:10px;"><i class="thirdPlace fa fa-trophy" aria-hidden="true"></i>{{placementData.thirdPlace}}</span>
+            <span style="font-size:15px;">Total Leagues {{teams.length}}</span>            
         </div>
         <div class="col-sm-4">
-            <span>Record: {{userData.totalWins}} - {{userData.totalLosses}} - {{userData.totalTies}}</span>
+            <h3>Life Time Record</h3>
+            <span style="font-size:45px;hidden:true"><i class="fa fa-troph"></i></span>
+            <span style="font-size:45px;">{{userData.totalWins}} - {{userData.totalLosses}} - {{userData.totalTies}}</span>
         </div>
         <div class="col-sm-4">
-            <span>Average Finish: {{userData.avgRank| number:2}} for {{teams.length}} teams</span>
+            <h3>Life Time Moves</h3>
+            <span style="font-size:45px;hidden:true"><i class="fa fa-troph"></i></span>
+            <span style="font-size:25px;">Trades: {{userData.totalTrades}}</span>
+            <span style="font-size:25px;margin-left:10px;">Waivers: {{userData.totalMoves}}</span>
         </div>
+
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h3>Placement Data</h3>
-            <table class="table table-bordered">
-                <tr><td></td><td colspan="3" style="text-align: center">Count of Times Rank Happened</td></tr>
-                <tr><td>Rank</td><td>End of Year Rank</td><td>Points Scored Rank</td><td>Points Scored Against Rank</td></tr>
+            <table class="table">
                 <tr>
-                    <td>1st Place</td><td>{{placementData.firstPlace}}</td><td>{{scoringData.firstPlace}}</td><td>{{scoringAgainstData.firstPlace}}</td>
+                    <td colspan="2">Finishes</td>
+                    <td colspan="2">Points Scored Rank</td>
+                    <td colspan="2">Points Against Rank</td>
                 </tr>
                 <tr>
-                    <td>2nd Place</td><td>{{placementData.secondPlace}}</td><td>{{scoringData.secondPlace}}</td><td>{{scoringAgainstData.secondPlace}}</td>
+                    <td>Avg</td><td>{{userData.avgRank| number:2}}</td>
+                    <td>Avg</td>
+                    <td>{{userData.avgPointsScoredRank| number:2}}</td>
+                    <td>Avg</td><td>{{userData.avgPointsAgainstRank| number:2}}</td>
                 </tr>
                 <tr>
-                    <td>3rd Place</td><td>{{placementData.thirdPlace}}</td><td>{{scoringData.thirdPlace}}</td><td>{{scoringAgainstData.thirdPlace}}</td>
+                    <td>Top Half</td>
+                    <td>{{placementData.topHalf}}</td>
+                    <td>Top Half</td>
+                    <td>{{scoringData.topHalf}}</td>
+                    <td>Top Half</td><td>{{scoringAgainstData.topHalf}}</td>
                 </tr>
                 <tr>
-                    <td>Top Half Finish</td><td>{{placementData.topHalf}}</td><td>{{scoringData.topHalf}}</td><td>{{scoringAgainstData.topHalf}}</td>
-                </tr>
-                <tr>
-                    <td>Bottom Half Finish</td><td>{{placementData.bottomHalf}}</td><td>{{scoringData.bottomHalf}}</td><td>{{scoringAgainstData.bottomHalf}}</td>
+                    <td>Bottom Half</td>
+                    <td>{{placementData.bottomHalf}}</td>
+                    <td>Bottom Half</td>
+                    <td>{{scoringData.bottomHalf}}</td>
+                    <td>Bottom Half</td><td>{{scoringAgainstData.bottomHalf}}</td>
                 </tr>
             </table>
         </div>
     </div>
+    <!--    <div class="row">
+            <div class="col-sm-12">
+                <h3>Placement Data</h3>
+                <table class="table table-bordered">
+                    <tr><td></td><td colspan="3" style="text-align: center">Count of Times Rank Happened</td></tr>
+                    <tr><td>Rank</td><td>End of Year Rank</td><td>Points Scored Rank</td><td>Points Scored Against Rank</td></tr>
+                    <tr>
+                        <td>1st Place</td><td>{{placementData.firstPlace}}</td><td>{{scoringData.firstPlace}}</td><td>{{scoringAgainstData.firstPlace}}</td>
+                    </tr>
+                    <tr>
+                        <td>2nd Place</td><td>{{placementData.secondPlace}}</td><td>{{scoringData.secondPlace}}</td><td>{{scoringAgainstData.secondPlace}}</td>
+                    </tr>
+                    <tr>
+                        <td>3rd Place</td><td>{{placementData.thirdPlace}}</td><td>{{scoringData.thirdPlace}}</td><td>{{scoringAgainstData.thirdPlace}}</td>
+                    </tr>
+                    <tr>
+                        <td>Top Half Finish</td><td>{{placementData.topHalf}}</td><td>{{scoringData.topHalf}}</td><td>{{scoringAgainstData.topHalf}}</td>
+                    </tr>
+                    <tr>
+                        <td>Bottom Half Finish</td><td>{{placementData.bottomHalf}}</td><td>{{scoringData.bottomHalf}}</td><td>{{scoringAgainstData.bottomHalf}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>-->
     <!--    <div class="row">
             
             <div class="col-sm-4">

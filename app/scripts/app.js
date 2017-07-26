@@ -29,6 +29,14 @@ angular
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
       })
+      .when('/leaderboard', {
+        templateUrl: 'views/leaderboard.html',
+        controller: 'LeaderboardCtrl'
+      })
+      .when('/contact', {
+        templateUrl: 'views/contact.html',
+        controller: 'ContactCtrl'
+      })
 //      .when('/accountCreate', {
 //            templateUrl: 'views/accountCreate.html',
 //            controller: 'AccountCtrl'

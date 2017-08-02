@@ -29,6 +29,13 @@ angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log', '$ht
                 }, function failure(xhr){
                     $log.log("Error",xhr);
                 });
+            },
+            getLeaderboard: function(offset, limit){
+                return $http.get(getRootUrl()+"leaderboard", {params: {offset: offset, limit: limit}}).then(function success(xhr){
+                    return xhr;
+                }, function failure(xhr){
+                    $log.log("Error",xhr);
+                });
             }
             
 //            createUser: function (email, password, username) {

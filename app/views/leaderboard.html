@@ -1,3 +1,23 @@
 <div>
-    <h3>Coming Soon!</h3>
+    <h3>Leaderboard</h3>
+    <h5 data-ng-show="users && users.length > 0">Ranks {{users[0].rank}} - {{users[users.length-1].rank}}</h5>
+    <table class="table table-bordered">
+        <tr>
+            <th>Site Rank</th>
+            <th>Score</th>
+            <th>Average Finish</th>
+            <th>Record</th>
+            <th># of Moves</th>
+            <th># of Trades</th>
+        </tr>
+        <tr data-ng-repeat="user in users">
+            <td><a href="#!/profiles/{{user.id}}">{{user.rank}}</a></td>
+            <td>{{user.userScore}}</td>
+            <td>{{user.avgRank | number:2}}</td>
+            <td>{{user.totalWins}}-{{user.totalLosses}}-{{user.totalTies}}</td>
+            <td>{{user.totalMoves}}</td>
+            <td>{{user.totalTrades}}</td>
+        </tr>
+    </table>
+    <ul uib-pager total-items="totalUsers" ng-model="currentPage" data-ng-change="queryLeaderboard()"></ul>
 </div>

@@ -19,7 +19,7 @@ angular.module('fantasyFootballNetworkApp')
                     $scope.loadingESPN = true;
                     FootballApi.linkESPN($scope.espnUsername, $scope.espnPassword,$scope.email).then(function(xhr){
                         $log.log("Link ESPN Response: ",xhr);
-                        window.href.location=xhr.data.profileUrl;
+                        window.location.href=xhr.data.profileUrl;
                         
                     });
                 };

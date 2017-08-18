@@ -1,16 +1,29 @@
-<div class="row">
-    <div class="col-sm-12">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address (Optional)</label>
-            <input data-ng-model="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">            
+<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address (Optional)</label>
+                <input data-ng-model="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">            
+            </div>
+            <!--        <div class="chekcbox">
+                        <label>Receive Email Updates <input data-ng-model="receiveUpdates" type="checkbox"></label>
+                    </div>-->
+            <a id="yahooLinkBtn" class="btn btn-primary" href="https://www.fantasyfootball.network/FantasyFootballNetwork/yahoo?userEmail={{getEncodedUserEmail()}}&receiveUpdates={{receiveUpdates}}">Link Yahoo</a>     
+            <a id="espnLinkBtn" class="btn btn-primary" data-ng-click="linkESPN()">Link ESPN</a>     
+            <a id="nflLinkBtn" class="btn btn-primary" data-ng-click="linkNFL()">Link NFL.com </a>     
+            <a id="cbsLinkBtn" class="btn btn-primary" data-ng-click="linkCBS()">Link CBS</a>    
+            <a id="otherLinkBtn" class="btn btn-primary" data-ng-click="linkOther()">Link Other </a>     
         </div>
-<!--        <div class="chekcbox">
-            <label>Receive Email Updates <input data-ng-model="receiveUpdates" type="checkbox"></label>
-        </div>-->
-        <a id="yahooLinkBtn" class="btn btn-primary" href="https://www.fantasyfootball.network/FantasyFootballNetwork/yahoo?userEmail={{getEncodedUserEmail()}}&receiveUpdates={{receiveUpdates}}">Link Yahoo</a>     
-        <a id="espnLinkBtn" class="btn btn-primary" data-ng-click="linkESPN()">Link ESPN</a>     
-        <a id="nflLinkBtn" class="btn btn-primary" data-ng-click="linkNFL()">Link NFL.com </a>     
-        <a id="cbsLinkBtn" class="btn btn-primary" data-ng-click="linkCBS()">Link CBS</a>    
-        <a id="otherLinkBtn" class="btn btn-primary" data-ng-click="linkOther()">Link Other </a>     
+    </div>
+    <div data-ng-show="showESPN" style="margin-top:20px;" class="row">
+        <div class="col-sm-12">
+            <span>If you linked your Yahoo teams, and want your ESPN teams to be added, enter your email address above again</span>
+            <div class="form-group">
+                <label for="exampleInputEmail1">ESPN Credentials</label>
+                <input data-ng-model="espnUsername" type="text" class="form-control" id="espnUsername" placeholder="ESPN Username">            
+                <input data-ng-model="espnPassword" type="password" class="form-control" id="espnPassword" placeholder="ESPN Password"> 
+                <button data-ng-click="submitESPNLink()" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
     </div>
 </div>

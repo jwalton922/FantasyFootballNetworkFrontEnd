@@ -16,6 +16,13 @@ angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log', '$ht
         };
 
         return {
+            getTopProfile: function(){
+                return $http.get(getRootUrl()+"topProfile").then(function success(xhr){
+                    return xhr;
+                }, function failure(xhr){
+                    $log.log("Error getting top profile url",xhr);
+                });
+            },
             linkESPN : function(username, password,email){
                 var postBody = {username: username, password: password};
                 return $http.post(getRootUrl()+"espn/linkAccount", postBody, {params : {userEmail: email}}).then(function success(xhr){

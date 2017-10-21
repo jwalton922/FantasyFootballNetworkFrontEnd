@@ -89,8 +89,8 @@ angular.module('fantasyFootballNetworkApp')
 
     };
 
-    $scope.getTeams();
-    $scope.searchUsers();
-    $scope.getFriends();
+//    $scope.getTeams();
+//    $scope.searchUsers();
+//    $scope.getFriends();
 
   }]);

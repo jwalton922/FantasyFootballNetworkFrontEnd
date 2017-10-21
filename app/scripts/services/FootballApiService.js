@@ -6,7 +6,12 @@
 angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log', '$http', function ($log, $http) {
 
         var getRootUrl = function () {
-            return "https://www.fantasyfootball.network/FantasyFootballNetwork/";
+            $log.log("Location hostname: "+location.hostname);
+            if (location.hostname === "localhost") {
+                return "http://localhost:8081/FantasyFootballNetwork/";
+            } else {
+                return location.origin+"/FantasyFootballNetwork/";
+            }
 //    $log.log("Getting hostname from: "+document.URL);
 //    if(location.hostname === "localhost"){
 //      return "http://localhost:8080";
@@ -16,72 +21,72 @@ angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log', '$ht
         };
 
         return {
-            getTopProfile: function(){
-                return $http.get(getRootUrl()+"topProfile").then(function success(xhr){
+            getTopProfile: function () {
+                return $http.get(getRootUrl() + "topProfile").then(function success(xhr) {
                     return xhr;
-                }, function failure(xhr){
-                    $log.log("Error getting top profile url",xhr);
+                }, function failure(xhr) {
+                    $log.log("Error getting top profile url", xhr);
                 });
             },
-            linkESPN : function(username, password,email){
+            linkESPN: function (username, password, email) {
                 var postBody = {username: username, password: password};
-                return $http.post(getRootUrl()+"espn/linkAccount", postBody, {params : {userEmail: email}}).then(function success(xhr){
+                return $http.post(getRootUrl() + "espn/linkAccount", postBody, {params: {userEmail: email}}).then(function success(xhr) {
                     return xhr;
-                }, function failure(xhr){
-                    $log.log("Error linking ESPN acount",xhr);
+                }, function failure(xhr) {
+                    $log.log("Error linking ESPN acount", xhr);
                 });
             },
-            getUser : function(userId){
-                return $http.get(getRootUrl()+"users/"+userId).then(function success(xhr){
+            getUser: function (userId) {
+                return $http.get(getRootUrl() + "users/" + userId).then(function success(xhr) {
                     return xhr;
-                }, function failure(xhr){
-                    $log.log("Error",xhr);
+                }, function failure(xhr) {
+                    $log.log("Error", xhr);
                 });
             },
-            getUserTeams : function(userId){
-                return $http.get(getRootUrl()+"users/"+userId+"/teams").then(function success(xhr){
+            getUserTeams: function (userId) {
+                return $http.get(getRootUrl() + "users/" + userId + "/teams").then(function success(xhr) {
                     return xhr;
-                }, function failure(xhr){
-                    $log.log("Error",xhr);
+                }, function failure(xhr) {
+                    $log.log("Error", xhr);
                 });
             },
-            getLeaderboard: function(offset, limit){
-                return $http.get(getRootUrl()+"leaderboard", {params: {offset: offset, limit: limit}}).then(function success(xhr){
+            getLeaderboard: function (offset, limit) {
+                $log.log("Root url: "+getRootUrl());
+                return $http.get(getRootUrl() + "leaderboard", {params: {offset: offset, limit: limit}}).then(function success(xhr) {
                     return xhr;
-                }, function failure(xhr){
-                    $log.log("Error",xhr);
+                }, function failure(xhr) {
+                    $log.log("Error", xhr);
+                });
+            },
+            createUser: function (email, password, username) {
+                var postBody = {
+                    email: email,
+                    username: username,
+                    password: password
+                };
+                $log.log("Creating account", postBody);
+                return $http.post(getRootUrl() + 'users', postBody).then(function success(xhr) {
+                    return xhr;
+                }, function failure(data) {
+                    return data;
+                    //alert("Error creating account: "+angular.toJson(data));
+                });
+            },
+            login: function (email, password) {
+                var postBody = {
+                    email:email,
+                    password: password
+                };                
+                return $http.post(getRootUrl() + 'login', postBody).then(function success(xhr) {
+                    var authString = btoa(email+":"+password);
+                    $http.defaults.headers.common['Authorization'] = 'Basic '+authString;
+                    
+                    return xhr;                    
+                }, function failure(data) {                    
+                    return data;
+                    //alert("Error creating account: "+angular.toJson(data));
                 });
             }
-            
-//            createUser: function (email, password, username) {
-//                var postBody = {
-//                    email: email,
-//                    username: username,
-//                    password: password
-//                };
-//                $log.log("Creating account", postBody);
-//                return $http.post(getRootUrl() + '/FantasyFootballNetwork/users', postBody).then(function success(xhr) {
-//                    return xhr;
-//                }, function failure(data) {
-//                    return data;
-//                    //alert("Error creating account: "+angular.toJson(data));
-//                });
-//            },
-//            login: function (email, password) {
-//                var postBody = {
-//                    email:email,
-//                    password: password
-//                };                
-//                return $http.post(getRootUrl() + '/FantasyFootballNetwork/login', postBody).then(function success(xhr) {
-//                    var authString = btoa(email+":"+password);
-//                    $http.defaults.headers.common['Authorization'] = 'Basic '+authString;
-//                    
-//                    return xhr;                    
-//                }, function failure(data) {                    
-//                    return data;
-//                    //alert("Error creating account: "+angular.toJson(data));
-//                });
-//            },
 //            testTeamJob: function (userId, teamId) {
 //                var url = getRootUrl() + "/FantasyFootballNetwork/yahoo/testTeamDataJob";
 //                var params = {userId: userId, teamId: teamId};

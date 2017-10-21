@@ -26,8 +26,12 @@ angular
                         controller: 'LandingCtrl'
                     })
                     .when('/signup', {
-                        templateUrl: 'views/signup.html',
-                        controller: 'SignupCtrl'
+                        templateUrl: 'views/createAccount.html',
+                        controller: 'AccountCtrl'
+                    })
+                    .when('/login', {
+                        templateUrl: 'views/login.html',
+                        controller: 'AccountCtrl'
                     })
                     .when('/leaderboard', {
                         templateUrl: 'views/leaderboard.html',

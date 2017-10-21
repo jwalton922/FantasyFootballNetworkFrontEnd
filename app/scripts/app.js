@@ -57,10 +57,10 @@ angular
                         templateUrl: "views/userProfile.html",
                         controller: "UserProfileCtrl"
                     })
-//      .when('/userHome', {
-//          templateUrl: "views/userHome.html",
-//          controller: "UserHomeCtrl"
-//      })
+                    .when('/userHome', {
+                        templateUrl: "views/userHome.html",
+                        controller: "UserHomeCtrl"
+                    })
 //      .when('/userProfile?userId', {
 //        templateUrl: "views/userProfile.html",
 //        controller: "UserProfileCtrl"
@@ -79,15 +79,15 @@ angular
 
 
         }).run(
-    function ($rootScope, $location, $window, $log) {
-        $log.log("run called with path: " + $location.path());
-        // initialise google analytics
-        $window.ga('create', 'UA-84572006-1', 'auto');
+        function ($rootScope, $location, $window, $log) {
+            $log.log("run called with path: " + $location.path());
+            // initialise google analytics
+            $window.ga('create', 'UA-84572006-1', 'auto');
 
-        // track pageview on state change
-        $rootScope.$on('$routeChangeSuccess', function (event) {
-            $log.log("state change success called with path: " + $location.path());
-            $window.ga('send', 'pageview', $location.path());
-        });
-    }
+            // track pageview on state change
+            $rootScope.$on('$routeChangeSuccess', function (event) {
+                $log.log("state change success called with path: " + $location.path());
+                $window.ga('send', 'pageview', $location.path());
+            });
+        }
 );

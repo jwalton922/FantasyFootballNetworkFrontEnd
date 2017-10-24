@@ -6,12 +6,12 @@
 angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log', '$http', function ($log, $http) {
 
         var getRootUrl = function () {
-            $log.log("Location hostname: "+location.hostname);
-            $log.log("Location: ",location);
+            $log.log("Location hostname: " + location.hostname);
+            $log.log("Location: ", location);
             if (location.hostname === "localhost") {
-                return "http://localhost:8081/FantasyFootballNetwork/";
+                return "http://localhost:9080/FantasyFootballNetwork/";
             } else {
-                return location.origin+"/FantasyFootballNetwork/";
+                return location.origin + "/FantasyFootballNetwork/";
             }
 //    $log.log("Getting hostname from: "+document.URL);
 //    if(location.hostname === "localhost"){
@@ -52,7 +52,7 @@ angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log', '$ht
                 });
             },
             getLeaderboard: function (offset, limit) {
-                $log.log("Root url: "+getRootUrl());
+                $log.log("Root url: " + getRootUrl());
                 return $http.get(getRootUrl() + "leaderboard", {params: {offset: offset, limit: limit}}).then(function success(xhr) {
                     return xhr;
                 }, function failure(xhr) {
@@ -75,17 +75,45 @@ angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log', '$ht
             },
             login: function (email, password) {
                 var postBody = {
-                    email:email,
+                    email: email,
                     password: password
-                };                
+                };
                 return $http.post(getRootUrl() + 'login', postBody).then(function success(xhr) {
-                    var authString = btoa(email+":"+password);
-                    $http.defaults.headers.common['Authorization'] = 'Basic '+authString;
-                    
-                    return xhr;                    
-                }, function failure(data) {                    
+                    var authString = btoa(email + ":" + password);
+                    $http.defaults.headers.common['Authorization'] = 'Basic ' + authString;
+
+                    return xhr;
+                }, function failure(data) {
                     return data;
                     //alert("Error creating account: "+angular.toJson(data));
+                });
+            },
+            getFriends: function (userId) {
+                var url = getRootUrl() + "users/" + userId + "/friends";
+
+                return $http.get(url).then(function success(xhr) {
+                    return xhr;
+                }, function error(xhr) {
+                    return xhr;
+                });
+            },
+            getFriendNotifications: function (userId) {
+                var url = getRootUrl() + "users/" + userId + "/friendNotifications";
+
+                return $http.get(url).then(function success(xhr) {
+                    return xhr;
+                }, function error(xhr) {
+                    return xhr;
+                });
+            },
+            addFriend: function (userId, friendId, networkName) {
+                var url = getRootUrl() + "users/"+userId+"/friends";
+                var body = {friendId: friendId, networkName: networkName};
+                
+                return $http.post(url, body).then(function success(xhr) {
+                    return xhr;
+                }, function error(xhr) {
+                    return xhr;
                 });
             }
 //            testTeamJob: function (userId, teamId) {
@@ -187,24 +215,8 @@ angular.module('fantasyFootballNetworkApp').factory('FootballApi', ['$log', '$ht
 //                    return xhr;
 //                });
 //            },
-//            getFriends: function (userId) {
-//                var url = getRootUrl() + "/FantasyFootballNetwork/users/friends";
-//                var params = {userId: userId};
-//                return $http.get(url, {params: params}).then(function success(xhr) {
-//                    return xhr;
-//                }, function error(xhr) {
-//                    return xhr;
-//                });
-//            },
-//            addFriend: function (userId, searchTerm) {
-//                var url = getRootUrl() + "/FantasyFootballNetwork/users/addFriend";
-//                var params = {searchTerm: searchTerm, userId: userId};
-//                return $http.get(url, {params: params}).then(function success(xhr) {
-//                    return xhr;
-//                }, function error(xhr) {
-//                    return xhr;
-//                });
-//            },
+
+
 //            refreshTeam: function (userId, teamKey) {
 //                var url = getRootUrl() + "/FantasyFootballNetwork/yahoo/refreshTeamData";
 //                var params = {userId: userId, teamKey: teamKey};

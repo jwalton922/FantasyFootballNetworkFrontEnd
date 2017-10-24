@@ -34,6 +34,7 @@ angular.module('fantasyFootballNetworkApp')
                     FootballApi.login($scope.data.email, $scope.data.password).then(function (xhr) {
                         $log.log("Success logging in", xhr);
                         UserService.setUser(xhr.data);
+                        $log.log("User service get user: ", UserService.getUser());
                         $location.path($scope.userHomePage);
                     }, function (error) {
                         $log.log("Error logging in", error);

@@ -10,6 +10,7 @@
             <th>Record</th>
             <th># of Moves</th>
             <th># of Trades</th>
+            <th></th>
         </tr>
         <tr data-ng-repeat="user in users">
             <td><a href="#!/profiles/{{user.id}}">{{user.rank}}</a></td>
@@ -19,6 +20,7 @@
             <td>{{user.totalWins}}-{{user.totalLosses}}-{{user.totalTies}}</td>
             <td>{{user.totalMoves}}</td>
             <td>{{user.totalTrades}}</td>
+            <td><button class="btn btn-primary" data-ng-click="addFriend(user)">Add as Friend</button></td>
         </tr>
     </table>
     <ul uib-pager total-items="totalUsers" ng-model="currentPage" data-ng-change="queryLeaderboard()"></ul>

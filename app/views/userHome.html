@@ -1,78 +1,87 @@
 <div>
-  <div class="row">
-    <div class="col-md-12" data-ng-show="user.hasLinkedTeam">
-      <h2>{{user.username}}</h2>
-      <div>Score: {{user.score | number: 2}} Rank: {{user.siteRanking}} Percentile {{user.sitePercentile}}</div>
-    </div>
-    <div>
-      <h3>Friends</h3>
-      <div data-ng-repeat="friend in friends">
-        {{friend.username}} {{friend.score}} Rank: {{friend.siteRanking}} Percentile {{friend.sitePercentile}}
-      </div>
-    </div>
-  </div>
-  <div class="row">
-      <div id="firstStep" class="col-md-12" data-ng-show="!user.hasLinkedTeam">
-        <h1>Thanks for joining Fantasy Football Network, {{user.username}}!</h1>
-        <h3>Getting started</h3>
+    <div class="row">
+        <div class="col-md-12" data-ng-show="user.hasLinkedTeam">
+            <h2>{{user.username}}</h2>
+            <div>Score: {{user.score| number: 2}} Rank: {{user.siteRanking}} Percentile {{user.sitePercentile}}</div>
+        </div>
         <div>
-          <p>To get started, you must first link your fantasy football teams. Currently we support only Yahoo, but we are working hard to add more sites to the Network!</p>
-          <div>
-              <a  class="btn" style="background: cyan;" href data-ng-click="linkYahoo()">Link Yahoo Fantasy Teams JS</a>
-          </div>
-          <div>
-            <a  class="btn" style="background: purple;" href="/FantasyFootballNetwork/yahoo?userEmail={{getEncodedUserEmail()}}&receiveUpdates={{receiveUpdates}}">Link Yahoo Fantasy Teams</a>
-          </div>
+            <h3>Friends<a class="btn" href="#!/leaderboard">Add Friend</a></h3>            
+            <div data-ng-repeat="friend in friends">
+                {{friend.username}} {{friend.score}} Rank: {{friend.siteRanking}} Percentile {{friend.sitePercentile}}
+            </div>
         </div>
-      </div>
-  </div>
-  <div class="row">
-    <div id="secondStep" class="col-md-12" data-ng-show="user.hasLinkedTeam && (!user.friends || user.friends.length == 0)">
-      <h1>Thanks for connecting your Fantasy teams, {{user.username}}!</h1>
-      <h4>Next Step</h4>
-      <p data-ng-hide="user.score > 0">We are working furiously to access your fantasy data and get you ready to expand your Fantasy Network. </p>
-      <p>
-        Add friends to your network so you can compare your scores!
-      </p>
-      <div class="col-md-4">
-        <h4>Search for friends</h4>
-        <div class="form-group">
-          <label>Email Address or Username</label>
-          <input type="text" data-ng-model="searchTerm" class="form-control" placeholder="Email">
-          <button class="btn" data-ng-click="addFriend()">Add Friend</button>
+        <div>
+            <h3>Notifications</h3>            
+            <div data-ng-repeat="notification in friendNotifications">
+                <h5>{{notification.headline}}</h5>
+                <div data-ng-repeat="child in notification.children">
+                    <ul>
+                        <li>{{child.headline}}</li>
+                        <li style="margin-left:20px;" data-ng-repeat="note in child.data.thingsOfNote">{{note}}</li>
+                    </ul>
+
+                </div>
+            </div>            
         </div>
-      </div>
-      <div class="form-group col-md-8">
-        <h4>Browse users</h4>
-        <table class="table table-bordered">
-          <tr><th>Rank</th><th>Username</th><th>Score</th><th>Teams</th><th></th></tr>
-          <tr data-ng-repeat="user in users">
-            <td>{{user.siteRanking}}</td>
-            <td><a href="#/userProfile?userId={{user.id}}">{{user.username}}</a></td>
-            <td>{{user.score}}</td>
-            <td>{{user.numTeams}}</td>
-            <td><button class="btn" data-ng-click="addFriend(user.username)">Add to Friends</button></td>
-          </tr>
-        </table>
-        <ul uib-pager total-items="totalUsers" ng-model="userBrowsingCurrentPage"></ul>
-      </div>
+        <div class="row">
+            <div id="firstStep" class="col-md-12" data-ng-show="!user.hasLinkedTeam">
+                <h1>Thanks for joining Fantasy Football Network, {{user.username}}!</h1>
+                <h3>Getting started</h3>
+                <div>
+                    <p>To get started, you must first link your fantasy football teams. Currently we support only Yahoo, but we are working hard to add more sites to the Network!</p>
+                    <div>
+                        <a  class="btn" style="background: purple;" href="/FantasyFootballNetwork/yahoo?userEmail={{getEncodedUserEmail()}}&receiveUpdates={{receiveUpdates}}">Link Yahoo Fantasy Teams</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="secondStep" class="col-md-12" data-ng-show="user.hasLinkedTeam && (!user.friends || user.friends.length == 0)">
+                <h1>Thanks for connecting your Fantasy teams, {{user.username}}!</h1>
+                <h4>Next Step</h4>
+                <p data-ng-hide="user.score > 0">We are working furiously to access your fantasy data and get you ready to expand your Fantasy Network. </p>
+                <p>
+                    Add friends to your network so you can compare your scores!
+                </p>
+                <div class="col-md-4">
+                    <h4>Search for friends</h4>
+                    <div class="form-group">
+                        <label>Email Address or Username</label>
+                        <input type="text" data-ng-model="searchTerm" class="form-control" placeholder="Email">
+                        <button class="btn" data-ng-click="addFriend()">Add Friend</button>
+                    </div>
+                </div>
+                <div class="form-group col-md-8">
+                    <h4>Browse users</h4>
+                    <table class="table table-bordered">
+                        <tr><th>Rank</th><th>Username</th><th>Score</th><th>Teams</th><th></th></tr>
+                        <tr data-ng-repeat="user in users">
+                            <td>{{user.siteRanking}}</td>
+                            <td><a href="#/userProfile?userId={{user.id}}">{{user.username}}</a></td>
+                            <td>{{user.score}}</td>
+                            <td>{{user.numTeams}}</td>
+                            <td><button class="btn" data-ng-click="addFriend(user.username)">Add to Friends</button></td>
+                        </tr>
+                    </table>
+                    <ul uib-pager total-items="totalUsers" ng-model="userBrowsingCurrentPage"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn" data-ng-click="testUserJobs()">Test jobs</button>
+                <h2>Your teams {{teams.length}}</h2>
+                <p>
+                    Your current score is <b>{{user.score| number:2}}</b>. How will your friends compare? You are
+                    ranked {{user.ranking}}
+                </p>
+                Home?
+                <table>
+                    <tr data-ng-repeat="team in teams">
+                        <td>{{team.team.teamName}}</td>
+                        <td><a href="#/league?leagueId={{team.league.id}}">{{team.league.name}} </a> ({{team.league.season}})</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row">
-     <div class="col-md-12">
-       <button class="btn" data-ng-click="testUserJobs()">Test jobs</button>
-       <h2>Your teams {{teams.length}}</h2>
-       <p>
-         Your current score is <b>{{user.score | number:2}}</b>. How will your friends compare? You are
-         ranked {{user.ranking}}
-       </p>
-        Home?
-         <table>
-           <tr data-ng-repeat="team in teams">
-             <td>{{team.team.teamName}}</td>
-            <td><a href="#/league?leagueId={{team.league.id}}">{{team.league.name}} </a> ({{team.league.season}})</td>
-           </tr>
-         </table>
-     </div>
-  </div>
-</div>

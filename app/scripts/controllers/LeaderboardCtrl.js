@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fantasyFootballNetworkApp')
-        .controller('LeaderboardCtrl', ['$scope', '$log', 'FootballApi',function ($scope, $log, FootballApi) {
+        .controller('LeaderboardCtrl', ['$scope', '$log', 'FootballApi','UserService',function ($scope, $log, FootballApi, UserService) {
                $scope.currentPage = 1;
                $scope.pageSize = 10;
                $scope.users = [];
@@ -17,6 +17,11 @@ angular.module('fantasyFootballNetworkApp')
                            $scope.users[i].rank = ($scope.currentPage-1)*$scope.pageSize+i+1;
                        }
                    });
+               };
+               
+               $scope.addFriend = function(userToFriend){
+                   var user = UserService.getUser();
+                   FootballApi.addFriend(user.id, userToFriend.id, "default");
                };
                $scope.queryLeaderboard();
             }]);

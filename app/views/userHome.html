@@ -4,24 +4,30 @@
             <h2>{{user.username}}</h2>
             <div>Score: {{user.score| number: 2}} Rank: {{user.siteRanking}} Percentile {{user.sitePercentile}}</div>
         </div>
-        <div>
-            <h3>Friends<a class="btn" href="#!/leaderboard">Add Friend</a></h3>            
-            <div data-ng-repeat="friend in friends">
-                {{friend.username}} {{friend.score}} Rank: {{friend.siteRanking}} Percentile {{friend.sitePercentile}}
-            </div>
-        </div>
-        <div>
-            <h3>Notifications</h3>            
-            <div data-ng-repeat="notification in friendNotifications">
-                <h5>{{notification.headline}}</h5>
-                <div data-ng-repeat="child in notification.children">
+        <div class="row">
+            <div class="col-md-9">
+                <h3>Notifications</h3>            
+                <div data-ng-repeat="notification in friendNotifications">
+                    <h5>{{notification.headline}}</h5>
                     <ul>
-                        <li>{{child.headline}}</li>
-                        <li style="margin-left:20px;" data-ng-repeat="note in child.data.thingsOfNote">{{note}}</li>
+                        <li style="margin-left:20px;" data-ng-repeat="note in notification.data.thingsOfNote">{{note}}</li>
                     </ul>
+                    <div data-ng-repeat="child in notification.children">
+                        <ul>
+                            <li>{{child.headline}}</li>
+                            <li style="margin-left:20px;" data-ng-repeat="note in child.data.thingsOfNote">{{note}}</li>
+                        </ul>
 
+                    </div>
+                </div>     
+
+            </div>
+            <div class="col-md-3">
+                <h3>Friends<a class="btn" href="#!/leaderboard">Add Friend</a></h3>            
+                <div data-ng-repeat="friend in friends">
+                    <a href="#!/profiles/{{friend.userId}}">{{friend.username}}</a> Score {{friend.score}}
                 </div>
-            </div>            
+            </div>
         </div>
         <div class="row">
             <div id="firstStep" class="col-md-12" data-ng-show="!user.hasLinkedTeam">

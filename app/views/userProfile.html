@@ -6,11 +6,11 @@
             <span style="font-size:30px;vertical-align: middle;">Score:</span><span style="font-size:30px;margin-left:5px;" id="overallscore" class="odometer">0</span>
             <span style="margin-left:25px;font-size:30px;vertical-align: middle;">Site Ranking:</span><span style="font-size:30px;margin-left:5px;" id="ranking" class="odometer">0</span>
             <span style="margin-left:25px; font-size:30px;vertical-align: middle;">Percentile:</span><span style="font-size:30px;margin-left:5px;" id="percentile" class="odometer">0</span>            
-            <p>Check back regularly to see how your rank changes!</p>
+            <p>Check back regularly to see how the rank changes!</p>
         </div>
         
     </div>
-    <div class="row">
+    <div data-ng-show="showShare()" class="row">
         <div class="col-sm-12">            
             <span><a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out how good I am at Fantasy Football!" data-url="{{window.location.href}}" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></span>
         </div>

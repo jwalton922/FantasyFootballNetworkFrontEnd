@@ -116,5 +116,14 @@ angular.module('fantasyFootballNetworkApp')
                         var retValue = a[field] < b[field];
                         return retValue * $scope.teamSortOrder[field];
                     });
-                }
+                };
+                
+                $scope.showShare = function(){
+                    var user = UserService.getUser();
+                    if(user && $scope.userId === user.id){
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
             }]);
